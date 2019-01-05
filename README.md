@@ -9,7 +9,8 @@ some thoughts
 ```lua
     -- 打包数据
     -- @cmd:协议号,根据此协议号读schema文件
-    -- @optional:允许部分数据不打包,用nil占位即可
+    -- @optional or default:不允许部分数据不打包(optional请用手动打包)，所有数据类型必须支持default值，因为lua在扩展时，是不会去修改旧数据的
+    -- 没有默认值会导致出错，这一点也和protobuf所有字段默认optional机制一致
     -- 所有需要打包的数据平铺在堆栈上
     lua_stream:pack([optional,]cmd,d1,d2,d3,nil,d5...)
 
@@ -69,7 +70,7 @@ some thoughts
 other
 -----
 
-* 不要设置太复杂，不要尝试在编辑器、schema中去处理optional字段，也不要尝试自动解析带optional的包
+* 不要设置太复杂，不要尝试在编辑器、schema中去处理optional字段，也不要尝试自动解析带optional的包，因为这种数据包少，没必要引入复杂的机制
 * 如果你想加更多的功能，为啥不直接换protobuf
 
 
